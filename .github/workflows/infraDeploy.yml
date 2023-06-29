@@ -29,7 +29,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.ACCESS_KEY}}
           aws-secret-access-key: ${{ secrets.SECRET_KEY }}
-          aws-region: us-west-1
+          aws-region: us-east-1
 
       - name: Deploy Stack To DEV Environment
         if: endsWith(github.ref, '/dev')
