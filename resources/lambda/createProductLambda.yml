@@ -1,0 +1,17 @@
+name: create-product-${self:provider.stage}-lambda
+handler: src/lambdas/createProduct/index.handler
+environment:
+  PRODUCT_TABLE: ${self:custom.ProductTableName}
+layers:
+  - !Ref ProductLambdaLayer
+events: #this event will trigger defined lambda here to create product in table
+  - http:
+      path: /createProduct
+      method: POST
+      cors: true
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:PutItem
+    Resource:
+      - { Fn::GetAtt: [ProductTable, Arn] }

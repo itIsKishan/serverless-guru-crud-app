@@ -1,0 +1,17 @@
+name: update-product-${self:provider.stage}-lambda
+handler: src/lambdas/updateProduct/index.handler
+environment:
+  PRODUCT_TABLE: ${self:custom.ProductTableName}
+layers:
+  - !Ref ProductLambdaLayer
+events: #this event will trigger defined lambda here to make api call for updating the product info
+  - http:
+      path: /updateProduct
+      method: PUT
+      cors: true
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:UpdateItem
+    Resource:
+      - { Fn::GetAtt: [ProductTable, Arn] }

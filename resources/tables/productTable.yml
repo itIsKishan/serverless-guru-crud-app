@@ -1,0 +1,29 @@
+Type: AWS::DynamoDB::Table
+Properties:
+  TableName: Product-${self:provider.stage}-Table
+  BillingMode: PAY_PER_REQUEST
+  AttributeDefinitions: #productId, productName, isDeleted wil be the attribute of table
+    - AttributeName: productId
+      AttributeType: S
+    - AttributeName: productName
+      AttributeType: S
+    - AttributeName: isDeleted
+      AttributeType: S
+  KeySchema:
+    - AttributeName: productId #this attribute will be the partition key of this table
+      KeyType: HASH
+  GlobalSecondaryIndexes:
+    - IndexName: productInfoByName #this index is created to fetch a single product based on the name and isDeleted attribute
+      KeySchema:
+        - AttributeName: productName
+          KeyType: HASH
+        - AttributeName: isDeleted
+          KeyType: RANGE
+      Projection:
+        ProjectionType: ALL
+    - IndexName: isDeletedIndex #this index is created to fetch all product based on isDeleted attribute
+      KeySchema:
+        - AttributeName: isDeleted
+          KeyType: HASH
+      Projection:
+        ProjectionType: ALL

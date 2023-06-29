@@ -1,0 +1,48 @@
+service: serverless-guru-crud-app #project name
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-1 #region of deployment
+  stage: ${opt:stage ,'dev'} #stage can be: dev/prod
+
+package:
+  individually: true #it will package each lambda individually
+  patterns:
+    - '!screenshots/**'
+    - '!layers/**'
+    - '!node_modules/**'
+    - '!package.json'
+
+#to provide individual permission for lambda installed this plugin
+plugins:
+  - serverless-iam-roles-per-function
+
+# as i am using table name in 5 lambdas so making it more efficient by adding it in custom for access
+custom:
+  ProductTableName: !Ref ProductTable
+
+layers:
+  product:
+    package:
+      artifact: layers/nodejs.zip
+    name: ${opt:stage}-product
+    compatibleRuntimes:
+      - nodejs16.x
+    compatibleArchitectures:
+      - x86_64
+      - arm64
+
+functions:
+  #for doing CRUD operation on the products created the lambdas
+  CreateProduct: ${file(./resources/lambda/createProductLambda.yml)}
+  GetProduct: ${file(./resources/lambda/getProductLambda.yml)}
+  GetAllProduct: ${file(./resources/lambda/getAllProductsLambda.yml)}
+  UpdateProduct: ${file(./resources/lambda/updateProductLambda.yml)}
+  DeleteProduct: ${file(./resources/lambda/deleteProductLambda.yml)}
+
+resources:
+  Resources:
+    #the product table contains the details of the products like, name, id, isDeleted etc..
+    ProductTable: ${file(./resources/tables/productTable.yml)}

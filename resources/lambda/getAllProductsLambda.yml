@@ -1,0 +1,21 @@
+name: get-all-product-${self:provider.stage}-lambda
+handler: src/lambdas/getAllProduct/index.handler
+environment:
+  PRODUCT_TABLE: ${self:custom.ProductTableName}
+layers:
+  - !Ref ProductLambdaLayer
+events: #this event will trigger defined lambda here to fetch all the product infos
+  - http:
+      path: /getAllProduct
+      method: GET
+      cors: true
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:Query
+    Resource: #getting the arn of the table and adding /index/* to allow to do query
+      - Fn::GetAtt: [ProductTable, Arn]
+      - Fn::Join:
+          - "/"
+          - - Fn::GetAtt: [ProductTable, Arn]
+            - "index/*"

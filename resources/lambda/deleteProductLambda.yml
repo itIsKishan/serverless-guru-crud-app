@@ -1,0 +1,17 @@
+name: delete-product-${self:provider.stage}-lambda
+handler: src/lambdas/deleteProduct/index.handler
+environment:
+  PRODUCT_TABLE: ${self:custom.ProductTableName}
+layers:
+  - !Ref ProductLambdaLayer
+events: #this event will trigger defined lambda here to delete the product in table(soft delete)
+  - http:
+      path: /deleteProduct
+      method: DELETE
+      cors: true
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:UpdateItem
+    Resource:
+      - { Fn::GetAtt: [ProductTable, Arn] }

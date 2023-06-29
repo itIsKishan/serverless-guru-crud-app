@@ -1,0 +1,8 @@
+# package directories
+node_modules
+package-lock.json
+jspm_packages
+coverage
+
+# Serverless directories
+.serverless
