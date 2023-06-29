@@ -110,3 +110,12 @@ DEV CI/CD pipeline
 
 PROD CI/CD pipeline
 ![PROD CI/CD](screenshots/PRODCICD.png)
+
+### TECH STACK & PACKAGES USED
+- NodeJS
+- Serverless Framework
+- API Gateway
+- Lambda
+- DynamoDB
+- Jest
+- uuid
