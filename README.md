@@ -88,7 +88,7 @@ serverless deploy --stage prod
 If you want to use my API and test in postman use the below API:
 
 ```
-DEV: https://jpj5e9tczb.execute-api.us-east-1.amazonaws.com/dev/
+DEV: https://o36gp3eh0c.execute-api.us-east-1.amazonaws.com/dev/
 PROD: https://957o0k4up4.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
