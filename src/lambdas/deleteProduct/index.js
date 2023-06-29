@@ -4,7 +4,7 @@ const TABLE_NAME = process.env.PRODUCT_TABLE
 
 exports.handler = async (event) => {
     try {
-        /* this lambda will delete the particulat product(soft delete) based on productId,
+        /* this lambda will delete the particular product(soft delete) based on productId,
            it will set the isDeleted flag to true whenever the query or get happen this will not be shown in the result
         */
         console.log('INFO', event);

@@ -32,7 +32,7 @@ npm i -g serverless
 In Order To use the codebase you need to clone it.
 
 ```
-$ git clone git@github.com:itIsKishan/serverless-guru-crud-project.git
+$ git clone git@github.com:itIsKishan/serverless-guru-crud-app.git
 ```
 
 After cloning, you should install the dependencies by running
