@@ -89,7 +89,7 @@ If you want to use my API and test in postman use the below API:
 
 ```
 DEV: https://o36gp3eh0c.execute-api.us-east-1.amazonaws.com/dev/
-PROD: https://957o0k4up4.execute-api.us-east-1.amazonaws.com/prod/
+PROD: https://gh761wl0h5.execute-api.us-east-1.amazonaws.com/prod/
 ```
 
 ### RUN TEST CASES
